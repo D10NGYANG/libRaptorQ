@@ -231,6 +231,7 @@ SET(SOURCES
             src/RaptorQ/v1/wrapper/CPP_RAW_API_void.cpp
             src/RaptorQ/v1/wrapper/CPP_RFC_API_void.cpp
             src/RaptorQ/v1/wrapper/CPP_caches.cpp
+            src/api/RaptorQ_Api.cpp
             )
 
 SET(HEADERS
@@ -276,6 +277,7 @@ SET(HEADERS_LINKED
             src/RaptorQ/v1/wrapper/CPP_RFC_API_void.hpp
             src/RaptorQ/v1/wrapper/CPP_RAW_API.hpp
             src/RaptorQ/v1/wrapper/CPP_RAW_API_void.hpp
+            src/api/RaptorQ_Api.h
             )
 
 SET(HEADERS_ONLY
