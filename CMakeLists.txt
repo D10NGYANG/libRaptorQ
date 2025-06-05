@@ -430,7 +430,7 @@ if(STATIC_LIB MATCHES "ON")
         )
     endif()
     set_property(TARGET RaptorQ_Static PROPERTY ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
-    if(CMAKE_SYSTEM_NAME MATCHES "Windows" OR CMAKE_SYSTEM_NAME MATCHES "Android")
+    if(CMAKE_SYSTEM_NAME MATCHES "Windows" OR CMAKE_SYSTEM_NAME MATCHES "Android" OR CMAKE_SYSTEM_NAME MATCHES "iOS")
         # not really deterministic?
         # don't know how to do that in Windows.
         add_custom_target(
@@ -606,5 +606,11 @@ elseif(STATIC_LIB MATCHES "ON")
     install(TARGETS RaptorQ_Static
         ARCHIVE DESTINATION lib COMPONENT libraries)
 endif()
-install(TARGETS CLI_raw
-    RUNTIME DESTINATION bin COMPONENT runtime)
+if(CMAKE_MACOSX_BUNDLE)
+    install(TARGETS CLI_raw
+        BUNDLE DESTINATION bin COMPONENT runtime
+        RUNTIME DESTINATION bin COMPONENT runtime)
+else()
+    install(TARGETS CLI_raw
+        RUNTIME DESTINATION bin COMPONENT runtime)
+endif()

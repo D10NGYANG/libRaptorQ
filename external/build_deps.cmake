@@ -64,9 +64,8 @@ if(RQ_BUILD_LZ4)
     set(RQ_LZ4_EXCLUDE_SYM ",--exclude-libs lib${RQ_LZ4_LIBNAME}.a")
 
     # set the dependency and build it all
-    # 在第62行附近，将原来的条件修改为：
     MESSAGE(STATUS "CMAKE_SYSTEM_NAME=${CMAKE_SYSTEM_NAME}")
-    if(CMAKE_SYSTEM_NAME MATCHES "Windows" OR CMAKE_SYSTEM_NAME MATCHES "Android")
+    if(CMAKE_SYSTEM_NAME MATCHES "Windows" OR CMAKE_SYSTEM_NAME MATCHES "Android" OR CMAKE_SYSTEM_NAME MATCHES "iOS")
         add_custom_target(LZ4 DEPENDS ${RQ_LZ4_LIBNAME})
         set(RQ_LZ4_DEP ${RQ_LZ4_LIBNAME})
     else()
