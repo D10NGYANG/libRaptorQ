@@ -409,7 +409,7 @@ if(STATIC_LIB MATCHES "ON")
     add_library(RaptorQ_Static STATIC ${SOURCES} ${HEADERS} ${HEADERS_LINKED})
     add_dependencies(RaptorQ_Static LZ4)
     if(NOT CMAKE_SYSTEM_NAME MATCHES "Windows")
-        set_target_properties(RaptorQ_Static PROPERTIES OUTPUT_NAME RaptorQ.${RQ_ABI})
+        set_target_properties(RaptorQ_Static PROPERTIES OUTPUT_NAME RaptorQ)
     endif()
     target_compile_options(
         RaptorQ_Static PRIVATE
@@ -447,7 +447,7 @@ if(STATIC_LIB MATCHES "ON")
         target_link_libraries(make_deterministic ${STDLIB} ${RQ_UBSAN})
         add_custom_command(
             OUTPUT deterministic.run
-            COMMAND make_deterministic ${CMAKE_CURRENT_BINARY_DIR}/lib/libRaptorQ.${RQ_ABI}.a
+            COMMAND make_deterministic ${CMAKE_CURRENT_BINARY_DIR}/lib/libRaptorQ.a
             DEPENDS RaptorQ_Static
             COMMENT "Removing creation date from library..."
             VERBATIM
@@ -489,8 +489,6 @@ if(DYNAMIC_LIB MATCHES "ON")
         RaptorQ
         PROPERTIES
         LINK_FLAGS ${RQ_LINK_LIB}
-        SOVERSION ${RQ_ABI}
-        VERSION ${RQ_VERSION}
     )
     set_property(TARGET RaptorQ PROPERTY LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 endif()
