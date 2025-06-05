@@ -595,8 +595,17 @@ foreach (hdr ${HEADERS} ${HEADERS_ONLY} ${HEADERS_LINKED})
     install (FILES ${hdr} DESTINATION "include/${dir_of_file}")
 endforeach()
 
-install(TARGETS RaptorQ RaptorQ_Static
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib COMPONENT libraries)
+# Install targets only if they were built
+if(DYNAMIC_LIB MATCHES "ON" AND STATIC_LIB MATCHES "ON")
+    install(TARGETS RaptorQ RaptorQ_Static
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib COMPONENT libraries)
+elseif(DYNAMIC_LIB MATCHES "ON")
+    install(TARGETS RaptorQ
+        LIBRARY DESTINATION lib COMPONENT libraries)
+elseif(STATIC_LIB MATCHES "ON")
+    install(TARGETS RaptorQ_Static
+        ARCHIVE DESTINATION lib COMPONENT libraries)
+endif()
 install(TARGETS CLI_raw
     RUNTIME DESTINATION bin COMPONENT runtime)

@@ -21,6 +21,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,6 +35,42 @@ extern "C" {
  * @return 实际填充的元素数量，如果sizes为NULL，则返回可用块大小的总数
  */
 uint32_t get_usable_block_sizes(uint16_t* sizes, uint32_t size);
+
+/**
+ * RaptorQ编码函数
+ * 
+ * @param symbol_size 符号大小（字节）
+ * @param symbols 块大小（符号数量）
+ * @param repair 修复符号数量
+ * @param input_data 输入数据缓冲区
+ * @param input_size 输入数据大小
+ * @param output_data 输出数据缓冲区（调用者负责分配足够空间）
+ * @param output_size 输出缓冲区大小
+ * @param actual_output_size 实际输出数据大小（返回值）
+ * @return 1表示成功，0表示失败
+ */
+int raptorq_encode(int64_t symbol_size, uint16_t symbols, uint32_t repair,
+                   const uint8_t* input_data, size_t input_size,
+                   uint8_t* output_data, size_t output_size,
+                   size_t* actual_output_size);
+
+/**
+ * RaptorQ解码函数
+ * 
+ * @param bytes 原始数据大小（字节）
+ * @param symbols 块大小（符号数量）
+ * @param symbol_size 符号大小（字节）
+ * @param input_data 输入编码数据缓冲区
+ * @param input_size 输入数据大小
+ * @param output_data 输出解码数据缓冲区（调用者负责分配足够空间）
+ * @param output_size 输出缓冲区大小
+ * @param actual_output_size 实际输出数据大小（返回值）
+ * @return 1表示成功，0表示失败
+ */
+int raptorq_decode(size_t bytes, uint16_t symbols, int64_t symbol_size,
+                   const uint8_t* input_data, size_t input_size,
+                   uint8_t* output_data, size_t output_size,
+                   size_t* actual_output_size);
 
 #ifdef __cplusplus
 }
