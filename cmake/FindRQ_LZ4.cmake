@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # and a copy of the GNU Lesser General Public License
 # along with libRaptorQ.  If not, see <http://www.gnu.org/licenses/>.
-#
 
 FIND_PATH(RQ_LZ4_INCLUDE_DIR
     NAMES lz4.h
@@ -28,6 +27,12 @@ FIND_PATH(RQ_LZ4_INCLUDE_DIR
     /usr/local/
     ${CMAKE_CURRENT_SOURCE_DIR}/external/lz4/lib
 )
+
+# Force use internal LZ4 for cross-compilation
+if(CMAKE_CROSSCOMPILING)
+    SET(RQ_LZ4_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/lz4/lib)
+    SET(RQ_LZ4_USE_OWN ON)
+endif()
 
 FIND_LIBRARY(RQ_LZ4_LIB
     NAMES lz4

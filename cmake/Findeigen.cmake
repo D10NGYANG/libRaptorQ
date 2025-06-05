@@ -29,6 +29,11 @@ FIND_PATH(EIGEN3_INCLUDE_DIR
     ${PROJECT_SOURCE_DIR}/external/eigen3
 )
 
+# Force use internal eigen3 for cross-compilation
+if(CMAKE_CROSSCOMPILING)
+    SET(EIGEN3_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/eigen3)
+endif()
+
 IF(EIGEN3_INCLUDE_DIR)
     SET(EIGEN3_FOUND TRUE)
 ELSE(EIGEN3_INCLUDE_DIR)

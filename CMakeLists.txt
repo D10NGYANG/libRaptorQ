@@ -430,7 +430,7 @@ if(STATIC_LIB MATCHES "ON")
         )
     endif()
     set_property(TARGET RaptorQ_Static PROPERTY ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
-    if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    if(CMAKE_SYSTEM_NAME MATCHES "Windows" OR CMAKE_SYSTEM_NAME MATCHES "Android")
         # not really deterministic?
         # don't know how to do that in Windows.
         add_custom_target(
